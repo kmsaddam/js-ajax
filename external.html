@@ -34,20 +34,19 @@
             // console.log(search);
             let xhr  = new XMLHttpRequest();
             xhr.open('GET',`https://api.chucknorris.io/jokes/search?query=${search}` , true);
+
+            xhr.onprogress = function () {
+                list += `<li>Loading............</li>`;
+            }
+
             xhr.onload = function () {
                 let data = JSON.parse(xhr.response);
                 let jokes = data.result;
-                //console.log(result);
+                list = '';
                 jokes.forEach(joke => {
                     list += `<li>${joke.value}</li>`;
                 });
-
-                //console.log(list);
-
-                //listOutPut.append(list);
-                ul.innerHTML = "";
                 ul.innerHTML = list;
-
             }
 
             xhr.send();
