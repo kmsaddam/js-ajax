@@ -19,7 +19,16 @@
         btn.addEventListener('click', getData);
 
         function getData() {
-            console.log(`get data from ajax`)
+            let xhr  = new XMLHttpRequest();
+            xhr.open('GET', 'test.txt', true);
+            xhr.onload = function () {
+                let response = xhr.responseText;
+                //console.log(response)
+                output.innerHTML = `${response}`;
+            }
+
+            xhr.send();
+            //console.log(`get data from ajax`)
         }
     </script>
 </body>
