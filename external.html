@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+    <title>JS External Ajax</title>
+</head>
+<body>
+    <div class="container">
+        <input type="text" name="search" id="search"><button class="btn" id="btn">Get Data</button>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        let btn = document.getElementById('btn');
+        let output = document.getElementById('output');
+        let ul = document.createElement('ul');
+        ul.setAttribute('id', 'listOutPut');
+        output.append(ul);
+        let list = '';
+
+
+        let listOutPut = document.createElement('listOutPut');
+        
+        // let search = (document.getElementById('search').val()) ? document.getElementById('search').value() : 'drama';
+        // let search = 'drama';
+        btn.addEventListener('click', getData);
+
+        function getData() {
+            
+            let search = document.getElementById('search').value ? document.getElementById('search').value : 'drama';
+            // console.log(search);
+            let xhr  = new XMLHttpRequest();
+            xhr.open('GET',`https://api.chucknorris.io/jokes/search?query=${search}` , true);
+            xhr.onload = function () {
+                let data = JSON.parse(xhr.response);
+                let jokes = data.result;
+                //console.log(result);
+                jokes.forEach(joke => {
+                    list += `<li>${joke.value}</li>`;
+                });
+
+                //console.log(list);
+
+                //listOutPut.append(list);
+                ul.innerHTML = "";
+                ul.innerHTML = list;
+
+            }
+
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

@@ -20,6 +20,7 @@
 
         function getData() {
             let xhr  = new XMLHttpRequest();
+            console.log(xhr);
             xhr.open('GET', 'test.txt', true);
             xhr.onload = function () {
                 let response = xhr.responseText;
